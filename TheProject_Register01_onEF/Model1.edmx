@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Domens">
+          <Key>
+            <PropertyRef Name="Domens" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Domens" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tables">
+          <Key>
+            <PropertyRef Name="JustId" />
+          </Key>
+          <Property Name="JustId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="Domens" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nchar" MaxLength="50" />
+          <Property Name="Password" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Tables__Domens__70DDC3D8">
+          <End Role="Domens" Type="Self.Domens" Multiplicity="1" />
+          <End Role="Tables" Type="Self.Tables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domens">
+              <PropertyRef Name="Domens" />
+            </Principal>
+            <Dependent Role="Tables">
+              <PropertyRef Name="Domens" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tables__IdUser__6FE99F9F">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tables" Type="Self.Tables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tables">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Domens" EntityType="Self.Domens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tables" EntityType="Self.Tables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Tables__Domens__70DDC3D8" Association="Self.FK__Tables__Domens__70DDC3D8">
+            <End Role="Domens" EntitySet="Domens" />
+            <End Role="Tables" EntitySet="Tables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tables__IdUser__6FE99F9F" Association="Self.FK__Tables__IdUser__6FE99F9F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tables" EntitySet="Tables" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Domen">
+          <Key>
+            <PropertyRef Name="Domens" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Domens" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tables" Relationship="Self.FK__Tables__Domens__70DDC3D8" FromRole="Domens" ToRole="Tables" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="JustId" />
+          </Key>
+          <Property Name="JustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Domens" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Domen" Relationship="Self.FK__Tables__Domens__70DDC3D8" FromRole="Tables" ToRole="Domens" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Tables__IdUser__6FE99F9F" FromRole="Tables" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Tables" Relationship="Self.FK__Tables__IdUser__6FE99F9F" FromRole="Users" ToRole="Tables" />
+        </EntityType>
+        <Association Name="FK__Tables__Domens__70DDC3D8">
+          <End Role="Domens" Type="Self.Domen" Multiplicity="1" />
+          <End Role="Tables" Type="Self.Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domens">
+              <PropertyRef Name="Domens" />
+            </Principal>
+            <Dependent Role="Tables">
+              <PropertyRef Name="Domens" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tables__IdUser__6FE99F9F">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Tables" Type="Self.Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tables">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Domens" EntityType="Self.Domen" />
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Tables__Domens__70DDC3D8" Association="Self.FK__Tables__Domens__70DDC3D8">
+            <End Role="Domens" EntitySet="Domens" />
+            <End Role="Tables" EntitySet="Tables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tables__IdUser__6FE99F9F" Association="Self.FK__Tables__IdUser__6FE99F9F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tables" EntitySet="Tables" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities1">
+          <EntitySetMapping Name="Domens">
+            <EntityTypeMapping TypeName="Database1Model.Domen">
+              <MappingFragment StoreEntitySet="Domens">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Domens" ColumnName="Domens" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="Database1Model.Table">
+              <MappingFragment StoreEntitySet="Tables">
+                <ScalarProperty Name="JustId" ColumnName="JustId" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Domens" ColumnName="Domens" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Database1Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
