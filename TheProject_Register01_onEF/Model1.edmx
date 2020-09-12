@@ -25,8 +25,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Login" Type="nchar" MaxLength="50" />
-          <Property Name="Password" Type="nchar" MaxLength="50" />
+          <Property Name="Login" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK__Tables__Domens__70DDC3D8">
           <End Role="Domens" Type="Self.Domens" Multiplicity="1" />
@@ -93,8 +92,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Tables" Relationship="Self.FK__Tables__IdUser__6FE99F9F" FromRole="Users" ToRole="Tables" />
         </EntityType>
         <Association Name="FK__Tables__Domens__70DDC3D8">
@@ -121,7 +119,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Database1Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Domens" EntityType="Self.Domen" />
           <EntitySet Name="Tables" EntityType="Self.Table" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -139,7 +137,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities1">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
           <EntitySetMapping Name="Domens">
             <EntityTypeMapping TypeName="Database1Model.Domen">
               <MappingFragment StoreEntitySet="Domens">
@@ -162,7 +160,6 @@
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

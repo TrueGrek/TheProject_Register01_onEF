@@ -6,36 +6,40 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 
 namespace TheProject_Register01_onEF
 {
     public partial class Table : System.Web.UI.Page
     {
+        Database1Entities context = new Database1Entities();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
 
+            string yser = Membership.GetUser().UserName.ToString();
+            Label3.Text = yser;
+
+            string[] userArrayRoles = Roles.GetRolesForUser(yser);
+            Repeater1.DataSource = userArrayRoles;
+            Repeater1.DataBind();
             try
             {
 
-                using (Database1Entities1 db = new Database1Entities1())
+                using (Database1Entities db = new Database1Entities())
                 {
-                    string al = Session["LoginSS"].ToString();
-                    string bl = Session["PasswordSS"].ToString();
 
+                    //Сначала я добавляю пользователя в бд
+                    string al = Membership.GetUser().UserName.ToString();
                     SqlParameter pLogin = new SqlParameter("@Login", al);
-                    SqlParameter pPassword = new SqlParameter("@Password", bl);
-
                     SqlParameter pLogin2 = new SqlParameter("@Login", al);
-                    SqlParameter pPassword2 = new SqlParameter("@Password", bl);
+                    SqlParameter pLogin3 = new SqlParameter("@Login", al);
 
-
-                    var idUser = db.Database.SqlQuery<User>("SELECT * FROM Users WHERE Login = @Login And Password = @Password", pLogin, pPassword).Any();
+                    var idUser = db.Database.SqlQuery<User>("SELECT * FROM Users WHERE Login = @Login", pLogin2).Any();
                     if (idUser)
                     {
-                        var x = db.Database.SqlQuery<User>("SELECT * FROM Users WHERE Login = @Login And Password = @Password", pLogin2, pPassword2).ToList();
+                        var x = db.Database.SqlQuery<User>("SELECT * FROM Users WHERE Login = @Login", pLogin3).ToList();
                         foreach (var item in x)
                         {
                             Session["idSS"] = item.Id;
@@ -49,7 +53,7 @@ namespace TheProject_Register01_onEF
                         }
                     }
 
-                   
+
                 }
 
             }
@@ -57,7 +61,7 @@ namespace TheProject_Register01_onEF
             {
                 Response.Write("Error: " + ex);
             }
-            
+
         }
 
         protected void Page_Unload(object sender, EventArgs e)
@@ -66,33 +70,92 @@ namespace TheProject_Register01_onEF
 
        
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //SqlCommand command = new SqlCommand
-                //("INSERT INTO Tables (IdUser, Domens) VALUES(@Id, @Domens)", _connectionn);
-                //// Инициализация переменных в запросе.
-
-                //command.Parameters.AddWithValue("Id", TextBox1.Text);
-                //command.Parameters.AddWithValue("Domens", DropDownList1.SelectedValue);
-
-                //// Выполнение запроса.
-
-                //command.ExecuteNonQuery();
-
-
-                Label1.Visible = true;
-            }
-            catch (Exception ex)
-            {
-                Response.Write("Error: " + ex);
-            }
-        }
+        
 
         protected void Button2_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/WebForm1.aspx");
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string a = Membership.GetUser().UserName.ToString();
+                if (Roles.IsUserInRole(a, "yandex") || Roles.IsUserInRole(a, "admin"))
+                {
+                    Response.Redirect("~/Userr/Yandex/Yandex.aspx");
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                Label1.Visible = true;
+            }
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string a = Membership.GetUser().UserName.ToString();
+                if (Roles.IsUserInRole(a, "gmail") || Roles.IsUserInRole(a, "admin"))
+                {
+                    Response.Redirect("~/Userr/Gmail/Gmail.aspx");
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                Label1.Visible = true;
+            }
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string a = Membership.GetUser().UserName.ToString();
+                if (Roles.IsUserInRole(a, "admin") || Roles.IsUserInRole(a, "admin"))
+                {
+                    Response.Redirect("~/Admin/Admin.aspx");
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch
+            {
+                Label1.Visible = true;
+            }
+        }
+
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            try { 
+
+            string a = Membership.GetUser().UserName.ToString();
+            if (Roles.IsUserInRole(a, "google") || Roles.IsUserInRole(a, "admin"))
+            {
+                Response.Redirect("~/Userr/Google/Google.aspx");
+            }
+                else
+                {
+                    throw new Exception();
+                }
+                
+            }
+            catch
+            {
+                Label1.Visible = true;
+            }
         }
     }
     }

@@ -13,10 +13,10 @@ namespace TheProject_Register01_onEF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Database1Entities1 : DbContext
+    public partial class Database1Entities : DbContext
     {
-        public Database1Entities1()
-            : base("name=Database1Entities1")
+        public Database1Entities()
+            : base("name=Database1Entities")
         {
         }
     

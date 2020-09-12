@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="TheProject_Register01_onEF._default" %>
+﻿<%@ Page Language="C#" UnobtrusiveValidationMode="None" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="TheProject_Register01_onEF._default" %>
 
 <!DOCTYPE html>
 
@@ -32,13 +32,10 @@
   <img class="mb-4" src="doge.gif" alt="" width="100" height="100">
   <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     
-  
+        <asp:Login ID="Login1" DestinationPageUrl="~/Table.aspx" runat="server"></asp:Login>
 
-  <asp:TextBox id="inputLogin" runat="server"  CssClass="form-control mb-1" placeholder="Login" required autofocus></asp:TextBox>
-  <asp:TextBox id="inputPassword" runat="server" type="password" CssClass="form-control" placeholder="Password" required></asp:TextBox>
-
-  <asp:Button ID="Button1" CssClass="btn btn-lg btn-primary btn-block mb-2" type="submit" runat="server" Text="Sign in" OnClick="Button1_Click" />
-        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/defaultReg.aspx">Ещё нет аккаунта?</asp:HyperLink>
+        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/defaultReg.aspx">Ещё нет аккаунта?</asp:HyperLink><br />
+        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Forgot.aspx">Забыли пароль?</asp:HyperLink>
         <asp:Label ID="Label1" Visible="false" runat="server" Text="Неправильно набран логин или пароль" ForeColor="Red"></asp:Label>
   <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>

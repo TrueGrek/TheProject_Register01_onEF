@@ -31,16 +31,17 @@
     <form class="form-signin" id="form1" runat="server">
   <img class="mb-4" src="doge.gif" alt="" width="100" height="100">
   <h1 class="h3 mb-3 font-weight-normal">Create an account</h1>
+        <asp:CreateUserWizard ID="CreateUserWizard1" ContinueDestinationPageUrl="~/default.aspx" OnCreatingUser="OnCreatedUser" runat="server" Answer="hi">
+            <WizardSteps>
+                <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server">
+                </asp:CreateUserWizardStep>
+                <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server">
+                </asp:CompleteWizardStep>
+            </WizardSteps>
+        </asp:CreateUserWizard>
 
-  <asp:TextBox id="inputLogin2" runat="server"  CssClass="form-control mb-1" placeholder="Login" required autofocus></asp:TextBox>
-  <asp:TextBox id="inputPassword2" runat="server" type="password" CssClass="form-control mb-1" placeholder="Password" required ControlToCompare="inputPassword2"></asp:TextBox>
-  <asp:TextBox id="inputPassword22" runat="server" type="password" CssClass="form-control mb-1" placeholder="Repeat Password" required></asp:TextBox>
-        <%//делаю через compare ибо умею, а не умный %>
-        <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="mb-1" ForeColor="Red" ErrorMessage="Пароли не совпадают" ControlToValidate="inputPassword22" ControlToCompare="inputPassword2"></asp:CompareValidator><br />
-        <asp:Label ID="Label1" runat="server" ForeColor="Red" CssClass="mb-1" Visible="False" Text="Такой логин уже существует"></asp:Label>
-
-  <asp:Button ID="Button1" CssClass="btn btn-lg btn-primary btn-block mb-2" type="submit" runat="server" Text="Sign in" OnClick="Button1_Click" />
         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/default.aspx">Уже есть аккаунт?</asp:HyperLink>
+        
   <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
         
 

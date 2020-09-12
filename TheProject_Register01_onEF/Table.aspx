@@ -12,9 +12,10 @@
     <form id="form1" runat="server">
         <div class="container col-12">
             <div class="py-5 text-center ">
-                <asp:Label ID="Label2" runat="server" Visible="false" Text="У пользователя нет прав ни на один домен" Font-Size="X-Large"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Visible="true" Text="Общая таблица" Font-Size="X-Large"></asp:Label>
                 <br />
-                <asp:Button ID="Button2" runat="server" Text="Посмотреть таблицу всех пользователей" OnClick="Button2_Click" />
+                <asp:Button ID="Button2" runat="server" Text="Посмотреть таблицу всех пользователей" OnClick="Button2_Click" /><br />
+                <asp:Label ID="Labeld" runat="server" Text="Здесь указаны доступные пользователю домены"></asp:Label>
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
                     <Columns>
                         <asp:BoundField DataField="IdUser" HeaderText="IdUser" SortExpression="IdUser" />
@@ -27,22 +28,29 @@
                     </SelectParameters>
                 </asp:SqlDataSource>
                 <br />
-
-                <br class="mb-3"/>
-                <h1>Insert in table</h1>
-                Id:
-                <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="True"></asp:TextBox><br />
-                Domen(только существующие):<br/>
-                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource3" DataTextField="Domens" DataValueField="Domens">
-                </asp:DropDownList>
-                <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Domens]"></asp:SqlDataSource>
-                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Tables]"></asp:SqlDataSource>
-                <br class="mb-3"/>
+                <br />
                 
-                <asp:Button ID="Button1" runat="server" Text="Send" CssClass="btn-success" OnClick="Button1_Click"/><br />
-                <asp:Label ID="Label1" Visible="false" runat="server" Text="Операция прошла успешно" ForeColor="#33CC33"></asp:Label>
-
-            </div>
+                У пользователя есть права на следующие домены: <br />
+                <asp:Repeater ID="Repeater1" runat="server">
+                    <ItemTemplate>
+                <%--Container.DataItem - один элемент источника данных, в данном случае типа string--%>
+                <%# Container.DataItem %>
+                <br />
+            </ItemTemplate>
+                </asp:Repeater>
+                
+                <asp:Literal ID="Literal1" runat="server" Text="На сервере сейчас: "></asp:Literal>
+                <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <asp:Button ID="Button3" runat="server" Text="Yandex" OnClick="Button3_Click" />
+                <asp:Button ID="Button4" runat="server" Text="Gmail" OnClick="Button4_Click" />
+                <asp:Button ID="Button6" runat="server" Text="Google" OnClick="Button6_Click" /><br />
+                <asp:Button ID="Button5" runat="server" Text="Admin" OnClick="Button5_Click" />
+                <asp:Label ID="Label1" Visible="false" runat="server" Text="У вас нет прав на этот домен"></asp:Label>
         </div>
 
     </form>
