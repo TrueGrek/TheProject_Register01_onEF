@@ -16,7 +16,6 @@ namespace TheProject_Register01_onEF
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            Roles.DeleteRole("user");
             //Создаём роли
             if (!Roles.IsUserInRole("admin", "admin"))
             {
@@ -30,8 +29,7 @@ namespace TheProject_Register01_onEF
 
             if (!Roles.RoleExists(one) || !Roles.RoleExists(two) || !Roles.RoleExists(three) || !Roles.RoleExists(four) || !Roles.RoleExists(five))
             {
-                
-                Roles.CreateRole(five);
+
             };
         }
 

@@ -39,7 +39,11 @@ namespace TheProject_Register01_onEF
                     db.Users.Add(u);
                     db.SaveChanges();
                 }
-                Roles.AddUserToRole(al, "userr");
+                if (!Roles.IsUserInRole(al, "userr"))
+                {
+                    Roles.AddUserToRole(al, "userr");
+                }
+                
             }
         }
         

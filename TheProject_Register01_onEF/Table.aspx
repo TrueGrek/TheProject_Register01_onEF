@@ -40,7 +40,8 @@
                 </asp:Repeater>
                 
                 <asp:Literal ID="Literal1" runat="server" Text="На сервере сейчас: "></asp:Literal>
-                <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text=""></asp:Label><br />
+                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/ChangePassword.aspx" >Изменить пароль</asp:HyperLink>
                 <br />
                 <br />
                 <br />
